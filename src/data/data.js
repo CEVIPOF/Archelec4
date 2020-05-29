@@ -1,0 +1,87 @@
+export const dataMock = [
+  {
+    name: "testounet",
+    job: "conseiller",
+  },
+  {
+    name: "toto",
+    job: "maire",
+  },
+  {
+    name: "toto",
+    job: "conseiller",
+  },
+];
+
+export const dataTest = 
+[
+   {
+      identifiant: "EL174_L_1988_06_01__01_1_PF_02",
+      election: "L",
+      annee: "1988",
+      mois: "06",
+      departement: "01",
+      circ: "01",
+      tour: "1",
+      type: "PF",
+      rang: "suppléant",
+      nom: "Mortel",
+      prenom: "Jean-François",
+      sexe: "H",
+      age: "NR",
+      profession: "NR",
+      mandat_public_en_cours: "NR",
+      mandat_public_passe: "NR",
+      assoc: "NR",
+      autre_statut: "NR",
+      decorations: "non",
+      partis_en_soutien: "Comités Juquin",
+      liste: "Une nouvelle politique à gauche"
+   },
+   {
+      identifiant: "EL177_L_1988_06_85__04_1_PF_01",
+      election: "L",
+      annee: "1988",
+      mois: "06",
+      departement: "85",
+      circ: "04",
+      tour: "1",
+      type: "PF",
+      rang: "suppléant",
+      nom: "Bolteau",
+      prenom: "Jean-François",
+      sexe: "H",
+      age: "30",
+      profession: "NR",
+      mandat_public_en_cours: "NR",
+      mandat_public_passe: "NR",
+      assoc: "religion;non précisé",
+      autre_statut: "étudiant",
+      decorations: "non",
+      partis_en_soutien: "NR",
+      liste: "Majorité présidentielle pour la France unie"
+   },
+   {
+      identifiant: "EL177_L_1988_06_88__03_2_PF_02",
+      election: "L",
+      annee: "1988",
+      mois: "06",
+      departement: "88",
+      circ: "03",
+      tour: "2",
+      type: "PF",
+      rang: "suppléant",
+      nom: "Valroff",
+      prenom: "Jean",
+      sexe: "H",
+      age: "NR",
+      profession: "NR",
+      mandat_public_en_cours: "NR",
+      mandat_public_passe: "NR",
+      assoc: "NR",
+      autre_statut: "NR",
+      decorations: "non",
+      partis_en_soutien: "NR",
+      liste: "Majorité présidentielle pour la France unie"
+   }
+]
