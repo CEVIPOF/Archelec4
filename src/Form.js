@@ -26,7 +26,7 @@ class Form extends Component {
         return (
             <form>
                 <label htmlFor="name">Name</label>
-                <select type="text" name="name" id="name" value={this.state.value} onChange={this.handleChange}>
+                <select type="text" name="name" id="name" value={this.state.name} onChange={this.handleChange}>
                      <option selected value={null}></option>
                      <option value="testounet">testounet</option>
                      <option value="toto">toto</option>
@@ -34,7 +34,7 @@ class Form extends Component {
                 </select>
 
                 <label htmlFor="job">Job</label>
-                <select type="text" name="job" id="job" value={this.state.value} onChange={this.handleChange}>
+                <select type="text" name="job" id="job" value={this.state.job} onChange={this.handleChange}>
                      <option selected value={null}></option>
                      <option value="conseiller">conseiller</option>
                      <option value="maire">maire</option>
