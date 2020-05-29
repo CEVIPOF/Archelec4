@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { filterData } from './Helpers'
-import { dataMock } from './Data'
+import { filterData } from './helpers'
+import { dataMock } from './data'
 import Form from './Form'
 import Table from './Table'
 
 class App extends Component {
     state = {
-        formData: [],
+        formData: {},
         loadedData: dataMock
     }
 
@@ -25,7 +25,7 @@ class App extends Component {
                 <Form handleSubmit={this.handleSubmit} />
 
                 <h1>Résultats</h1>
-                <Table data={this.state.formData} />
+                <Table data={data} />
             </div>
         );
     }

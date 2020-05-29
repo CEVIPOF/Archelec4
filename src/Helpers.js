@@ -15,7 +15,7 @@ export const cleanStr = str => {
         const matchingKey = keys.find(key => {
             const objectValue = cleanStr( obj[key] );
             const filterValue = cleanStr( formData[key] );
-            if ( objectValue.includes( filterValue ) ) {
+            if (!filterValue && objectValue.includes( filterValue ) ) {
                 return true;
             }
             return false;
