@@ -20,6 +20,7 @@ class App extends Component {
     const data = filterData(formData, loadedData);
 
     return (
+      <div>
         <h1>Recherche avancée</h1>
         <Form handleSubmit={this.handleSubmit} />
 
