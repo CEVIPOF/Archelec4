@@ -5,7 +5,7 @@ const TableHeader = () => {
     <thead>
       <tr>
         <th>Identifiant</th>
-{/*
+        {/*
         <th>Élection</th>
         <th>Année</th>
         <th>Mois</th>

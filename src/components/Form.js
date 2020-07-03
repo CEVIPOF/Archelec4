@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 
 const initialState = {
-   identifiant: "",
-   election: "",
-   annee: "",
-   mois: "",
-   departement: "",
-   circ: "",
-   tour: "",
-   type: "",
-   rang: "",
-   nom: "",
-   prenom: "",
-   sexe: "",
-   age: "",
-   profession: "",
-   mandat_public_en_cours: "",
-   mandat_public_passe: "",
-   assoc: "",
-   autre_statut: "",
-   decorations: "",
-   partis_en_soutien: "",
-   liste: ""
+  identifiant: "",
+  election: "",
+  annee: "",
+  mois: "",
+  departement: "",
+  circ: "",
+  tour: "",
+  type: "",
+  rang: "",
+  nom: "",
+  prenom: "",
+  sexe: "",
+  age: "",
+  profession: "",
+  mandat_public_en_cours: "",
+  mandat_public_passe: "",
+  assoc: "",
+  autre_statut: "",
+  decorations: "",
+  partis_en_soutien: "",
+  liste: "",
 };
 
 class Form extends Component {
@@ -36,13 +36,13 @@ class Form extends Component {
 
   submitForm = () => {
     this.props.handleSubmit(this.state);
-      /*
+    /*
          La ligne suivante remet à zéro le formulaire dès que l'on submit.
          Ne pas utiliser si l'on souhaite voir les champs remplis en même
          temps que la recherche.
          À compléter avec un bouton CLEAR permettant de reload le form
       */
-    this.setState(initialState)
+    this.setState(initialState);
   };
 
   render() {
@@ -67,8 +67,8 @@ class Form extends Component {
       autre_statut,
       decorations,
       partis_en_soutien,
-      liste
-   } = this.state;
+      liste,
+    } = this.state;
     return (
       /*
       <form>
@@ -105,16 +105,27 @@ class Form extends Component {
       */
       <form>
         <label htmlFor="election">Élection</label>
-        <select type="text" name="election" id="election" value={this.state.election} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="election"
+          id="election"
+          value={this.state.election}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="L">Législatives</option>
           <option value="P">Présidentielles</option>
           <option value="M">Municipales</option>
         </select>
 
-
         <label htmlFor="annee">Année de l'élection</label>
-        <select type="text" name="annee" id="annee" value={this.state.annee} onchange={this.state.handleChange}>
+        <select
+          type="text"
+          name="annee"
+          id="annee"
+          value={this.state.annee}
+          onchange={this.state.handleChange}
+        >
           <option value={null}></option>
           <option value="2012">2012</option>
           <option value="2011">2011</option>
@@ -143,7 +154,13 @@ class Form extends Component {
         </select>
 
         <label htmlFor="mois">Année de l'élection</label>
-        <select type="text" name="annee" id="annee" value={this.state.mois} onchange={this.state.handleChange}>
+        <select
+          type="text"
+          name="annee"
+          id="annee"
+          value={this.state.mois}
+          onchange={this.state.handleChange}
+        >
           <option value={null}></option>
           <option value="01">Janvier</option>
           <option value="02">Février</option>
@@ -157,10 +174,16 @@ class Form extends Component {
           <option value="10">Octobre</option>
           <option value="11">Novembre</option>
           <option value="12">Décembre</option>
-         </select>
+        </select>
 
         <label htmlFor="departement">Département</label>
-        <select type="text" name="departement" id="departement"  value={this.state.departement} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="departement"
+          id="departement"
+          value={this.state.departement}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="01">Ain</option>
           <option value="02">Aisne</option>
@@ -266,7 +289,13 @@ class Form extends Component {
         </select>
 
         <label htmlFor="circ">Circonscription</label>
-        <select type="text" name="circonscription" id="circonscription" value={this.state.circ} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="circonscription"
+          id="circonscription"
+          value={this.state.circ}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="01">1ère</option>
           <option value="02">2nd</option>
@@ -284,7 +313,13 @@ class Form extends Component {
         </select>
 
         <label htmlFor="tour">Tour</label>
-        <select type="text" name="tour" id="tour" value={this.state.tour} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="tour"
+          id="tour"
+          value={this.state.tour}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="1">1er</option>
           <option value="2">2nd</option>
@@ -292,46 +327,120 @@ class Form extends Component {
         </select>
 
         <label htmlFor="type">Type de document</label>
-        <select type="text" name="type" id="type" value={this.state.type} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="type"
+          id="type"
+          value={this.state.type}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="PF">Profession de foi</option>
           <option value="autre">Autre</option>
         </select>
 
-
-
-
         <label htmlFor="rang">Rang du candidat</label>
-          <h6>Titulaire</h6>
-            <input name="rang" type="radio" id="rang" value="titulaire" checked={this.state.rang} onChange={this.handleChange} />
-          <h6>Suppléant</h6>
-            <input name="rang" type="radio" id="rang" value="suppleant" checked={this.state.rang} onChange={this.handleChange} />
-          <h6>Indifférencié</h6>
-            <input name="rang" type="radio" id="rang" value={null} checked={this.state.rang} onChange={this.handleChange} />
+        <h6>Titulaire</h6>
+        <input
+          name="rang"
+          type="radio"
+          id="rang"
+          value="titulaire"
+          checked={this.state.rang}
+          onChange={this.handleChange}
+        />
+        <h6>Suppléant</h6>
+        <input
+          name="rang"
+          type="radio"
+          id="rang"
+          value="suppleant"
+          checked={this.state.rang}
+          onChange={this.handleChange}
+        />
+        <h6>Indifférencié</h6>
+        <input
+          name="rang"
+          type="radio"
+          id="rang"
+          value={null}
+          checked={this.state.rang}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="nom">Nom</label>
-        <input type="text" name="nom" id="nom" value={nom} onChange={this.handleChange} />
+        <input
+          type="text"
+          name="nom"
+          id="nom"
+          value={nom}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="prenom">Prénom</label>
-        <input type="text" name="prenom" id="prenom" value={prenom} onChange={this.handleChange} />
+        <input
+          type="text"
+          name="prenom"
+          id="prenom"
+          value={prenom}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="sexe">Sexe</label>
-          <h6>Homme</h6>
-            <input name="sexe" type="radio" id="sexe" value="homme" checked={this.state.sexe} onChange={this.handleChange} />
-          <h6>Femme</h6>
-            <input name="sexe" type="radio" id="sexe" value="femme" checked={this.state.sexe} onChange={this.handleChange} />
-          <h6>Indifférencié</h6>
-            <input name="sexe" type="radio" id="sexe" value={null} checked={this.state.sexe} onChange={this.handleChange} />
-
+        <h6>Homme</h6>
+        <input
+          name="sexe"
+          type="radio"
+          id="sexe"
+          value="homme"
+          checked={this.state.sexe}
+          onChange={this.handleChange}
+        />
+        <h6>Femme</h6>
+        <input
+          name="sexe"
+          type="radio"
+          id="sexe"
+          value="femme"
+          checked={this.state.sexe}
+          onChange={this.handleChange}
+        />
+        <h6>Indifférencié</h6>
+        <input
+          name="sexe"
+          type="radio"
+          id="sexe"
+          value={null}
+          checked={this.state.sexe}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="age">Âge ou année de naissance</label>
-        <input type="text" name="age" id="age" value={age} onChange={this.handleChange} />
+        <input
+          type="text"
+          name="age"
+          id="age"
+          value={age}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="profession">Profession</label>
-        <input type="text" name="profession" id="profession" value={profession} onChange={this.handleChange} />
+        <input
+          type="text"
+          name="profession"
+          id="profession"
+          value={profession}
+          onChange={this.handleChange}
+        />
 
         <label htmlFor="mandat_public_en_cours">Mandat public en cours</label>
-        <select type="text" name="mandat_public_en_cours" id="mandat_public_en_cours" value={this.state.mandat_public_en_cours} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="mandat_public_en_cours"
+          id="mandat_public_en_cours"
+          value={this.state.mandat_public_en_cours}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="maire">Maire</option>
           <option value="depute">Député</option>
@@ -340,7 +449,13 @@ class Form extends Component {
         </select>
 
         <label htmlFor="mandat_public_passe">Mandat public passé</label>
-        <select type="text" name="mandat_public_passe" id="mandat_public_passe" value={this.state.mandat_public_passe} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="mandat_public_passe"
+          id="mandat_public_passe"
+          value={this.state.mandat_public_passe}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="maire">Maire</option>
           <option value="depute">Député</option>
@@ -349,7 +464,13 @@ class Form extends Component {
         </select>
 
         <label htmlFor="assoc">Association</label>
-        <select type="text" name="assoc" id="assoc" value={this.state.assoc} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="assoc"
+          id="assoc"
+          value={this.state.assoc}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="LR">Les Républicains</option>
           <option value="socialist">Socialiste</option>
@@ -358,32 +479,67 @@ class Form extends Component {
           <option value="religion">Religion</option>
         </select>
 
-
         <label htmlFor="autre_statut">Autre statut</label>
-        <select type="text" name="autre_statut" id="autre_statut" value={this.state.autre_statut} onChange={this.handleChange}>
+        <select
+          type="text"
+          name="autre_statut"
+          id="autre_statut"
+          value={this.state.autre_statut}
+          onChange={this.handleChange}
+        >
           <option selected value={null}></option>
           <option value="étudiant">Étudiant</option>
         </select>
 
-         <label htmlFor="decorations">Décoration(s)</label>
-           <h6>Oui</h6>
-             <input name="decorations" type="radio" id="decorations" value="oui" checked={this.state.decorations} onChange={this.handleChange} />
-           <h6>Non</h6>
-             <input name="decorations" type="radio" id="decorations" value="non" checked={this.state.decorations} onChange={this.handleChange} />
-           <h6>Non précisé</h6>
-             <input name="decorations" type="radio" id="decorations" value={null} checked={this.state.decorations} onChange={this.handleChange} />
+        <label htmlFor="decorations">Décoration(s)</label>
+        <h6>Oui</h6>
+        <input
+          name="decorations"
+          type="radio"
+          id="decorations"
+          value="oui"
+          checked={this.state.decorations}
+          onChange={this.handleChange}
+        />
+        <h6>Non</h6>
+        <input
+          name="decorations"
+          type="radio"
+          id="decorations"
+          value="non"
+          checked={this.state.decorations}
+          onChange={this.handleChange}
+        />
+        <h6>Non précisé</h6>
+        <input
+          name="decorations"
+          type="radio"
+          id="decorations"
+          value={null}
+          checked={this.state.decorations}
+          onChange={this.handleChange}
+        />
 
-         <label htmlFor="partis_en_soutien">Parti(s) en soutien</label>
-         <input type="text" name="partis_en_soutien" id="partis_en_soutien" value={partis_en_soutien} onChange={this.handleChange} />
+        <label htmlFor="partis_en_soutien">Parti(s) en soutien</label>
+        <input
+          type="text"
+          name="partis_en_soutien"
+          id="partis_en_soutien"
+          value={partis_en_soutien}
+          onChange={this.handleChange}
+        />
 
-         <label htmlFor="liste">Liste</label>
-         <input type="text" name="liste" id="liste" value={liste} onChange={this.handleChange} />
-
-
+        <label htmlFor="liste">Liste</label>
+        <input
+          type="text"
+          name="liste"
+          id="liste"
+          value={liste}
+          onChange={this.handleChange}
+        />
 
         <input type="button" value="Submit" onClick={this.submitForm} />
       </form>
-
     );
   }
 }

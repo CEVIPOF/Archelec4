@@ -3,6 +3,7 @@ import { filterData } from "../helpers/helpers";
 import { dataMock, dataTest } from "../data/data";
 import Form from "./Form";
 import Table from "./Table";
+import Autocomplete from "./Autocomplete";
 
 class App extends Component {
   state = {
@@ -23,6 +24,7 @@ class App extends Component {
       <div>
         <h1>Recherche avancée</h1>
         <Form handleSubmit={this.handleSubmit} />
+        <Autocomplete />
 
         <h1>Résultats</h1>
         <Table data={data} />
@@ -33,3 +35,4 @@ class App extends Component {
 
 export default App;
 // @flow
+// BIEN LE BONJOUR

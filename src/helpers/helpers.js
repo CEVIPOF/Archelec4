@@ -6,7 +6,6 @@ export const cleanStr = (str) => {
   return str.toLowerCase().replace(/éèêë/g, "e");
 };
 
-
 /*
    HINT: Pour le moment la fonction filterData renvoie des résultats dès que
    ce que l'utilisateur cherche est contenu dans une des méthadonnées
