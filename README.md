@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## L'OUTIL D'EXPLORATION DES DONNÉES DU PROJET ARCHELEC
+### Création d’un outil d’exploration
+Ma mission s’est focalisée sur la création d’un outil d’exploration des données du projet Archelec (le lot 2).
+Cet outil d’exploration doit surmonter plusieurs défis techniques : 
+Permettre à l’utilisateur d’effectuer une recherche avancée sur les champs constituant les métadonnées, 
+Fournir comme résultat d’une recherche la liste des professions de foi correspondant au critères de cette recherche,
+Fournir à l’utilisateur un formulaire de recherche simple et cohérent lui permettant d’appréhender le nombre d’entrées que chaque champ peut contenir (les champs Métier ou Nom contiennent par exemple plusieurs milliers d’entrées possibles),
+Donner en permanence la possibilité de télécharger les résultats d’une recherche (professions de foi ou métadonnées) afin de se constituer sa propre base de données.
+Cet outil vient en complément de la plateforme Internet Archive qui héberge les professions de foi et leurs métadonnées (https://archive.org/details/archiveselectoralesducevipof). L’outil n’a donc pas vocation à stocker les données, mais bien à permettre aux utilisateurs de rechercher des données spécifiques au sein du corpus - notamment en se fondant sur les métadonnées - ou à découvrir ce riche fond.
+L’idée même de cet outil et donc tout son intérêt vient du fait que la plateforme Internet Archive possède une interface de recherche avancée mais que celle-ci n’est pas assez complète et riche pour nos besoins. Elle est en fait trop vague et trop difficile d’accès, ses outils disponibles n’étant pas faits pour explorer spécifiquement notre corpus. En effet, l'objectif est de permettre d’effectuer des recherches sur le corpus en utilisant un jeu de métadonnées bien défini. L’outil proposé par Internet Archive est trop vague et lacunaire pour remplir correctement ce besoin. D’où la création de cet outil plus adapté à nos besoins.
+L’un des paramètres fixe, c’est qu’Internet Archive est actuellement la seule plateforme à contenir les données. Internet Archive fournit en effet des fonctionnalités de type "archivage" : les données sont sécurisées, stockées de manière pérenne, etc. Notre outil a pour vocation à ne pas interférer avec ce stockage (et donc finalement à ne rien stocker localement). Cela permet de maintenir une cohérence entre les outils et le corpus, et ainsi éviter des problèmes de synchronisation qui pourraient avoir lieu en cas de mise à jour des données du corpus. Afin de garantir cette unicité du jeu de données, l’outil n’hébergerait aucune donnée, mais viendrait plutôt récupérer les informations nécessaires au traitement des recherches des utilisateurs directement auprès de l’API d’Internet Archive. 
+### Le formulaire de recherche
+La fonctionnalité principale de cet outil d'exploration est son moteur de recherche. Celui-ci doit être aussi précis que le niveau de finesse des métadonnées, en ce sens que l’utilisateur doit pouvoir affiner sa recherche au champ de métadonnée près. Les variables de recherche doivent être adaptées au type de données que chaque champ de métadonnées contient. Ainsi, certaines valeurs du formulaire de recherche sont des listes fermées (ex : les dates des élections, qui sont peu nombreuses), d’autres sont des boutons de type radio (ex : le sexe du candidat), et enfin certains sont du texte plein avec une fonctionnalité d’auto-complétion : lorsque l’utilisateur commence à saisir du texte, le moteur affiche la liste des métadonnées qui contiennent ce texte. Par exemple, si l’utilisateur tape “SNCF” dans le champ de recherche Profession, le moteur lui propose de choisir entre les profession “SNCF Cheminot”, “Chef de gare SNCF”, “Conducteur SNCF”, etc. L’utilisateur peut ensuite choisir d’effectuer sa recherche sur le terme exact qu’il a entré, ce qui retournera toutes les professions de foi contenant cette donnée. Par exemple, pour “SNCF” seul, le formulaire retourne toutes les professions de foi pour lesquelles le candidat exerce une profession contenant le mot SNCF. Ou bien il peut affiner sa recherche en sélectionnant l’une des métadonnées proposées par l’auto-complétion. Par exemple, seulement les professions de foi pour lesquelles le candidat exerce la profession de “Cheminot SNCF”. Cela a pour effet de permettre à l’utilisateur d’effectuer à la fois des recherches très larges et vagues - il peut en effet être intéressant de recueillir toutes les professions de foi de candidats ayant un poste quelconque au sein de la SNCF - ou bien très précises et pointues. De plus, le fait que le moteur présente à l’utilisateur l’ensemble des entrées possibles au moment où celui-ci commence à effectuer une recherche sur un champ ouvre la porte de l’exploration du corpus : les métadonnées existantes étant très variées on ne peut immédiatement en saisir l’entière diversité, d’où l’intérêt de montrer à l’utilisateur la totalité de ce qu’il peut rechercher. 
+L’outil doit, en plus de proposer la recherche sur tous les champs de métadonnées, permettre de coupler les recherches. C’est-à-dire qu’il doit laisser la possibilité à l’utilisateur de rechercher en même temps plusieurs entrées d’un même champ. Ainsi on peut envisager de rechercher deux professions différentes à la fois (par exemple “Cheminot SNCF” et “Conducteur SNCF”). Les résultats obtenus étant soit l’union des résultats des deux recherches, soit leur intersection - ce choix restant à la discrétion de l’utilisateur : l’union fournirait les professions de foi de candidats cheminots ou celles de candidats conducteurs, tandis que l’intersection ne retournerait que celles de candidats se revendiquant cheminots ET conducteurs. 
+La recherche devra être la plus inclusive possible au niveau notamment de l’orthographe : ainsi, la casse, les accents, les diminutifs et les méthodes d’écriture des noms composés - entre autres - ne devront pas importer. Si l’utilisateur entre “Jean MARIE” dans le champ prénom, il obtiendra bien les professions de foi dans lesquelles le candidat se présente sous le prénom Jean-Marie.
+### L’affichage des résultats
+Comme cela a été dit plus haut, un autre aspect important de l’outil est sa façon de présenter les résultats d’une recherche. Les résultats doivent pouvoir être présentés de deux façons : soit en faisant une union des champs que l’utilisateur a rempli, soit une intersection. Cela signifie que l’outil fournira soit toutes les professions de foi contenant au moins un des champs que l’utilisateur a rempli dans le cas de l’union, soit les seules professions de foi contenant tous les champs que l’utilisateur a entré dans le cas de l’intersection. Prenons l’exemple des champs Nom et Prénom. Supposons que l’utilisateur y a entré “Lefèvre” et “Paul” respectivement. Choisir les résultats de l’union permettra d’obtenir les professions de foi de candidats se prénommant “X Lefèvre” ou “Paul Y”. Tandis que l’intersection ne renverra que les professions de foi des candidats répondant au nom de “Paul Lefèvre”.
+Puisque les documents sont hébergés sur Internet Archive, il n’y a pas d’intérêt à ce qu’ils le soient aussi par l’outil d’exploration. Donc, lors de la présentation des résultats d’une recherche, l’outil viendra afficher soit une prévisualisation des professions de foi résultantes qu’il aura récupéré depuis Internet Archive, soit une liste de liens qui redirigeront vers les professions de foi correspondantes sur Internet Archive.
+Le téléchargement et la redirection
+Tous les résultats de recherche doivent être téléchargeables, que ce soit les documents numérisés ou leurs métadonnées. Cela signifie donc qu’un utilisateur pourra, s’il le souhaite, télécharger l’entièreté du corpus hébergé par Internet Archive. 
+La plateforme propose déjà des téléchargements ciblés (pour les documents ou leurs métadonnées). L’outil d’exploration se repose donc sur cette méthode déjà implémentée. Pour ce faire, l’outil d’exploration doit parcourir les pages hébergeant - sur Internet Archive - les professions de foi issues d’un résultat de recherche et enclencher leur téléchargement grâce aux interfaces cURL ou Wget. De même, les métadonnées associées à ces professions de foi seront récupérées sous la forme de documents XML.
+### Lien avec d’autres données
+Le corpus d’Archelec4 est composé de professions de foi accompagnées des métadonnées qui en ont été extraites. Celles-ci sont très complètes, et elles pourraient être reliées aux résultats électoraux. Ces données existent. Il s’agit des “livres blancs” du ministère de l’Intérieur, pour chaque élection nationale..
+Il est apparu depuis longtemps aux chercheurs impliqués dans ce projet que ces informations peuvent apporter une plus-value aux données déjà intégrées au corpus. En effet, elles permettraient d’étudier certaines corrélations entre des stratégies politiques adoptées par des candidats et leurs résultats aux élections. Cette manne se devant d’être ouverte aux chercheurs afin qu’ils puissent l’exploiter et l’explorer - ainsi qu’au grand public ; il a été décidé très tôt de faire le jointure entre ces données et celles déjà recueillies dans le cadre du projet. 
+La tâche, simple à première vue, consiste à faire la jointure de deux bases de données : celle des métadonnées de notre corpus d’un côté, et celle des données extraites des livres blancs de l’autre. Cette jointure doit s’effectuer sur différentes valeurs - le nom et prénom du candidat, son département et sa circonscription. On obtient alors, pour toutes les professions de foi retournées les métadonnées d’origine associées aux informations de score à l’élection qui nous intéressent. 
+Cependant, plusieurs obstacles se sont présentés, notamment sur l’orthographe des clés de la jointure. En effet, pour effectuer une jointure entre deux tables, il faut que les variables sur lesquelles celle-ci va s’effectuer (les clés) soient orthographiées et écrites exactement de la même manière. Or, s’il y a bien des conventions d’écriture au sein des données d’Archelec et au sein des livres blancs, celles-ci ne sont pas les mêmes. La comparaison se faisant sur une orthographe stricte, la jointure ne fonctionnera alors que de manière assez aléatoire et ponctuelle. La difficulté réside donc dans le fait qu’il faut trouver un moyen de normaliser les données afin de faire concorder leurs conventions d’écriture. Cela signifie par exemple écrire l’entièreté des noms en minuscule uniquement ; supprimer les tirets ; supprimer les abréviations ; etc. Une fois ce travail effectué, un protocole de correction des cas récalcitrants basé sur le clustering des noms des candidats améliorera sensiblement les résultats, mais une proportion significative des données devra dans tous les cas être alignée à la main.
+La jointure effectuée, il s’agira d’ajouter au moteur de recherche de l’outil d’exploration un champ concernant ces nouvelles données. L’on pourra ainsi trier les professions de foi en fonction du score d’un candidat par exemple. Et ce score sera de toute façon visible sur la page de la profession de foi sur Internet Archive dès que cette donnée sera disponible.
+Vers une exploration plus vaste des archives du CEVIPOF
+Le projet Archelec4 se concentre uniquement sur des professions de foi de candidats aux élections législatives. Cependant, les archives électorales du CEVIPOF contiennent beaucoup d’autres typologies de documents et types d’élections. De plus, des professions de foi seules il est possible d’extraire bien plus d’informations qu’en l’état actuel. L’un des autres lots du projet se penche par exemple sur les logos de partis présents sur les documents du corpus. On peut aussi imaginer que les technologies de reconnaissance optique de caractère (OCR) de demain permettront d’exploiter directement l’entièreté d’un document numérisé. 
+Parmi les pistes pour le futur de cet outil d’exploration, on peut donc inclure la possibilité de rechercher n’importe quel terme contenu dans le document ; ou bien d’analyser seulement les logos ou les images ; ou alors la police de caractère et la typographie ; etc. 
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### L’avancement de mon travail
+Lors de l’élaboration conceptuelle de ce que serait cet outil d’exploration, il fut rapidement décidé que celui-ci serait codé en React - une bibliothèque JavaScript développé par Facebook. Le choix de React fut fait puisque cette bibliothèque se démarque de ses concurrents par sa flexibilité et ses performances, en travaillant avec un DOM virtuel et en ne mettant à jour le rendu dans le navigateur qu'en cas de nécessité. Le code est disponible sur Github (github.com/Archelec4). 
+La première difficulté qui s’est posée à moi est que je ne maîtrise ni React ni même JavaScript. Au début de mon stage, après une période d’intégration suivie d’une période de définition de mon travail, je me mis à me former sur cette technologie. Cet apprentissage concordait avec le début du confinement. Je suivis donc différents tutoriels et cours interactifs. Puis je me mis au développement. 
+Il s’avère - et je dû l’apprendre à mes frais - que le métier de développeur informatique ne se prête pas nécessairement bien au télétravail, surtout pour un jeune et nouvel employé. En effet, même si l’on imagine aisément l’informaticien très à l’aise seul dans se chambre, celui-ci a en fait un véritable besoin de sociabilisation. Demander de l’aide à un collègue en nous penchant sur son bureau, ou bien poser une question qui nous tracasse lors de la pose café sont finalement des choses essentielles à un bon développement informatique. D’autant qu’oser déranger son collègue à coup d’emails ou de visio-réunions n’est pas simple, notamment lorsque qu’il ne s’agit de votre collègue que depuis un mois à peine (et que vous ne l’avez rencontré que deux fois tout au plus).
+Tout ceci a indéniablement mené à des complications dans mon travail et donc dans le développement. À cela s’ajoute un environnement de travail peu propice (j’étais de retour chez mes parents où nous étions nombreux pendant ces mois) et un ordinateur qui décide de défaillir en fin de stage. 
+Pour l’instant, l’outil de recherche fonctionne correctement sur un jeu restreint de métadonnées. Il est compréhensif, c’est-à-dire qu’il renvoie toutes les professions de foi qui contiennent ce que l’utilisateur a entré dans le formulaire (par exemple, si l’on tape “SNCF” dans le champ Profession, il nous renvoie toutes les professions de foi pour lesquelles le candidat se revendique d’un métier qui contient le mot “SNCF” à l’instar de “cheminot SNCF”, “chef de gare SNCF”, “contrôleur SNCF”, etc.). La recherche contourne aussi les accents et les majuscules en forçant une casse minuscule et en remplaçant les lettres accentuées par leur pendant classique. 
+### Les pistes à privilégier à l’avenir
+Il faudra donc dans un premier temps faire fonctionner l’outil avec l’ensemble des métadonnées du corpus et donc avec toutes les professions de foi. Ensuite il sera temps de s’atteler à établir le lien entre l’application et Internet Archive, afin de ne plus avoir à héberger les métadonnées au sein de l’application. Enfin, il faudra mettre en place le lien entre les résultats d’une recherche et le téléchargement des données de cette recherche, par le biais d’une interface telle Wget ou Curl.
